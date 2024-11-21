@@ -2,38 +2,30 @@ import tkinter as tk
 from tkinter import messagebox
 import random
 
-# Create a class for the Flashcard app
 class FlashcardApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Flashcard App")
         self.root.geometry("400x400")
         
-        # List to store flashcards (question, answer)
         self.flashcards = []
         
-        # Create the UI elements
         self.create_widgets()
 
     def create_widgets(self):
-        # Frame for the buttons and entry
         self.frame = tk.Frame(self.root)
         self.frame.pack(pady=20)
         
-        # Button to add flashcards
         self.add_flashcard_button = tk.Button(self.frame, text="Add Flashcard", command=self.add_flashcard)
         self.add_flashcard_button.grid(row=0, column=0, padx=10)
 
-        # Button to start quiz mode
         self.quiz_mode_button = tk.Button(self.frame, text="Start Quiz", command=self.start_quiz)
         self.quiz_mode_button.grid(row=0, column=1, padx=10)
         
-        # Button to review flashcards
         self.review_button = tk.Button(self.frame, text="Review Flashcards", command=self.review_flashcards)
         self.review_button.grid(row=0, column=2, padx=10)
 
     def add_flashcard(self):
-        # Open a new window to add a flashcard
         self.add_window = tk.Toplevel(self.root)
         self.add_window.title("Add Flashcard")
 
@@ -51,7 +43,6 @@ class FlashcardApp:
         self.add_button.pack(pady=10)
 
     def save_flashcard(self):
-        # Save the flashcard data to the list
         question = self.question_entry.get()
         answer = self.answer_entry.get()
 
@@ -66,11 +57,9 @@ class FlashcardApp:
         if not self.flashcards:
             messagebox.showwarning("No Flashcards", "No flashcards available to quiz.")
             return
-
-        # Randomly shuffle the flashcards
+            
         random.shuffle(self.flashcards)
 
-        # Create the quiz window
         self.quiz_window = tk.Toplevel(self.root)
         self.quiz_window.title("Quiz Mode")
 
@@ -78,7 +67,6 @@ class FlashcardApp:
         self.show_question()
 
     def show_question(self):
-        # Display the next question
         current_flashcard = self.flashcards[self.index]
         self.question_label = tk.Label(self.quiz_window, text=current_flashcard["question"], font=("Arial", 14))
         self.question_label.pack(pady=20)
@@ -109,7 +97,6 @@ class FlashcardApp:
             messagebox.showwarning("No Flashcards", "No flashcards available to review.")
             return
 
-        # Create the review window
         self.review_window = tk.Toplevel(self.root)
         self.review_window.title("Review Flashcards")
 
@@ -118,7 +105,6 @@ class FlashcardApp:
             flashcard_label = tk.Label(self.review_window, text=flashcard_text, font=("Arial", 12), justify="left")
             flashcard_label.pack(pady=10)
 
-# Create the main window
 root = tk.Tk()
 flashcard_app = FlashcardApp(root)
 root.mainloop()
